@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#change-bg').click(()=>{
+                $.ajax('/preview-bg', {
+                    'type': 'GET',
+                    'data': {}
+                }).done((resp)=>{
+                    console.log(resp);
+                    $("body").css("background-color", resp);
+                }).fail((err)=>{
+                    console.log(err);
+                });
+            });
+
+            setInterval(function(){
+                $.ajax('/visit-count', {
+                    'type': 'GET'
+                }).done((resp)=>{
+                    console.log(resp);
+                    $('#page-view').html('Search page view: '+resp.visitSearch+', Preview page view: '+resp.visitPreview);
+                }).fail((err)=>{
+                    console.log(err);
+                });
+            }, 5000);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="page-view">Search page view: <%= searchCount %>, Preview page view: <%= previewCount %></div>
+    <h4>Your search has been saved successfully</h4>
+    <div style="display:grid;grid-template-columns:120px 300px;gap:10px;">
+        <label>Requester Name: </label>
+        <label><%= name %></label>
+        <label>Make: </label>
+        <% if(typeof(make) == 'object'){ %>
+            <label> <%= make.join(', ') %></label>
+        <% } else { %>
+            <label> <%= make %></label>
+        <% } %>
+        <label>Body Type</label>
+        <% if(model == 'yes'){ %>
+            <label>Sedan</label>
+        <% } else { %>
+            <label>Coupe</label>
+        <% } %>
+    </div>
+    <br />
+    <input id="change-bg" type="button" value="Change Background" />
+    <div style="margin-top: 20px;">
+        Popular make: <label><%= popularMake %></label><br />
+        Popular model: <% if(popularModel == 'yes'){ %>
+            <label>Sedan</label>
+        <% } else { %>
+            <label>Coupe</label>
+        <% } %>
+    </div>
+</body>
+
+</html>

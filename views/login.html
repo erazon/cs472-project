@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        div{
+            padding: 10px;
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <form accept="/login" method="post">
+        <div>
+            Username: <input type="text" name="username" />
+        </div>
+        <div>
+            Password: <input type="password" name="password" />
+        </div>
+        <div>
+            <input type="submit" />
+        </div>
+        <div class="error">
+            <% if(error) { %>
+                Username/Password mismatch
+            <% } %>
+        </div>
+    </form>
+</body>
+</html>
