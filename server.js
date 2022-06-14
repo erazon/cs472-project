@@ -7,15 +7,19 @@ var cookieParser = require("cookie-parser");
 const controllers = require('./controllers');
 
 //Read the parameters from post request
-app.use(cookieParser());
+app.use(cookieParser('pass-salt'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 
-app.listen(3000,function(){
-    console.log('server is running on 3000');
+const port = 80
+app.listen(port,function(){
+    console.log('server is running on post' , port);
 });
+
+app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next)=>{
     if(req.signedCookies && req.signedCookies.isLogged){
@@ -36,6 +40,8 @@ app.use((req, res, next)=>{
     }
 });
 
+
+
 app.get('/', controllers.search);
 
 app.post('/', controllers.search);
@@ -43,7 +49,7 @@ app.post('/', controllers.search);
 app.get('/login', controllers.loginGet);
 app.post('/login', controllers.loginPost);
 
-app.get('/preview', controllers.preview);
+app.get('/cars', controllers.cars);
 
 app.get('/preview-bg', controllers.previewBG);
 

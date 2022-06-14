@@ -14,59 +14,20 @@ obj.loginPost = (req, res, next)=>{
         $username: req.body.username,
         $password: req.body.password
     }, (err, row)=>{
+        console.log(row);
         if(row){
             //console.log(row);
             res.cookie('isLogged', false, {maxAge: 1000*60*60*24*7, signed: true});
             res.redirect('/cars');
         }
         else{
-            res.render('login.html', {error: true});
+            res.render('login.html', {error: "! You have entered invalid username/password "});
         }
     });
 };
 
-obj.preview = (req, res, next)=>{
-    let visit = 1;
-    if(req.cookies.previewVisit){
-        visit = parseInt(req.cookies.previewVisit) + 1;
-    }
-    res.cookie('previewVisit', visit);
-
-    let userData = {};
-    if(req.cookies.userData){
-        userData = req.cookies.userData;
-    }
-
-    // getting count
-    userData.previewCount = visit;
-    visit = 0;
-    if(req.cookies.searchVisit){
-        visit = parseInt(req.cookies.searchVisit);
-    }
-    userData.searchCount = visit;
-
-    // check popular year and body type
-    let history = req.cookies.searchHistory;
-    let count = 0, make = '', model = '';
-    for(let item in history.make){
-        if(history.make[item] > count){
-            count = history.make[item];
-            make = item;
-        }
-    }
-    count = 0;
-    for(let item in history.model){
-        if(history.model[item] > count){
-            count = history.model[item];
-            model = item;
-        }
-    }
-    console.log(make, model);
-    userData.popularMake = make;
-    userData.popularModel = model;
-
-    console.log(userData);
-    res.render('preview.html', userData);
+obj.cars = (req, res, next)=>{
+    res.render('cars', {username:'admin'});
 };
 
 obj.previewBG = (req, res, next)=>{

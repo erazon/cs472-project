@@ -1,0 +1,24 @@
+.global-header{
+    width: 100%;
+    /* border-bottom: 2px solid blueviolet; */
+}
+.global-header:after {
+    background-image: linear-gradient(-90deg,#078da1,#986b30);
+    content: "";
+    height: 4px;
+    position: absolute;
+    width: 100%;
+}
+.global-header li a {
+    align-items: center;
+    color: #212121;
+    display: flex;
+    line-height: 1;
+    margin: 0;
+}
+.navbar{
+    padding: 0.1rem 1rem;
+}
+a.nav-link{
+    color: black;
+}

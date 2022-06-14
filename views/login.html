@@ -1,36 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        div{
-            padding: 10px;
-        }
-        .error{
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    <h1>Login</h1>
-    <form accept="/login" method="post">
-        <div>
-            Username: <input type="text" name="username" />
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/customize.css">
+    <link rel="stylesheet" type="text/css" href="/css/signin.css">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+  </head>
+  <body>
+    <header class="global-header">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-sm navbar-white" style="background-color: #ffffff;">
+                <a class="navbar-brand" href="#">
+                    <img src="/images/logo-5s.png" width="100" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"  alt="5sCars.com">
+                  
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation"></button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cars">Cars</a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="#">Action 1</a>
+                                <a class="dropdown-item" href="#">Action 2</a>
+                            </div>
+                        </li> -->
+                    </ul>
+                    <ul class="navbar-nav my-2 my-lg-0">
+                     
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sign In</a>
+                        </li>
+                        
+                    </ul>
+                    <!-- <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form> -->
+                </div>
+            </nav>
         </div>
-        <div>
-            Password: <input type="password" name="password" />
+                
+    </header>
+  
+    <div class="container-fluid">
+        
+        <div class="row">
+        <div class="col-8 col-md-8 col-lg-8">
+            <form action="/login" method="post" class="form-signin my-4">
+                
+                <h1 class="h3 mb-3 font-weight-bold">Sign in</h1>
+                    <% if (error) { %>
+                    
+                    <div class="alert alert-danger" role="alert">
+                        <strong><%= error %></strong>
+                    </div>
+                    <% } %>
+                <label for="inputEmail" class="sr-only">Username</label>                
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username: shafiq" name="username" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password: 123456" name="password" required>
+                
+                <div class="password-help">
+                    <p class="helper-text pull-left">Minimum of eight characters</p>
+                    <p class="text-right pull-right"><a href="/forgot_password">Forgot password?</a></p>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                      <input type="checkbox" name="rememberme" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <div class="disclaimer">
+                    By signing in to your profile, you agree to our&nbsp;
+                    <a data-linkname="privacy-statement" data-activity-rule-type="custom" data-component="privacy-statement" data-toggle="modal" data-target="#modelId" target="_blank" aria-describedby="audioeye_new_window_message">Privacy Statement</a>
+                      &nbsp;and&nbsp;
+                    <a id="tos" data-linkname="tos" data-activity-rule-type="custom" data-component="terms-of-service" data-toggle="modal" data-target="#modelId" target="_blank" aria-describedby="audioeye_new_window_message">Terms of Service</a>.
+                </div>
+                
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+              </form>
         </div>
-        <div>
-            <input type="submit" />
-        </div>
-        <div class="error">
-            <% if(error) { %>
-                Username/Password mismatch
-            <% } %>
-        </div>
-    </form>
-</body>
+        <div class="col-4 col-md-4 col-lg-4">
+            <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+              Launch
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                    <h5 class="modal-title">Privacy</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam laborum animi officia alias vero corporis voluptate sit inventore excepturi soluta iusto corrupti asperiores mollitia perferendis, deserunt quae optio totam quam.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                $('#exampleModal').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    // Use above variables to manipulate the DOM
+                    
+                });
+            </script>
+
+        </div> 
+    </div>     
+        
+    </div>
+
+    <!-- Optional JavaScript -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/js/script.js" crossorigin="anonymous"></script>
+  </body>
 </html>
