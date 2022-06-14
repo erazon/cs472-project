@@ -39,9 +39,10 @@ app.use((req, res, next)=>{
     }
 });
 
-app.get('/', controllers.index);
-
 app.get('/login', controllers.loginGet);
 app.post('/login', controllers.loginPost);
-
 app.get('/cars', controllers.cars);
+
+app.use((req, res, next)=>{
+    res.status(404).sendFile(path.join(__dirname, '404.html'));
+});

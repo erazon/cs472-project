@@ -9,10 +9,6 @@ obj.cars = (req, res, next)=>{
     res.render('cars', {username:'admin'});
 };
 
-obj.index = (req, res, next)=>{
-    console.log('index');
-}
-
 obj.loginGet = (req, res, next)=>{
     res.render('login.html', {error: false});
 };
