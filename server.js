@@ -10,6 +10,7 @@ const controllers = require('./controllers');
 app.use(cookieParser('pass-salt'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
@@ -18,8 +19,6 @@ const port = 80
 app.listen(port,function(){
     console.log('server is running on post' , port);
 });
-
-app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next)=>{
     if(req.signedCookies && req.signedCookies.isLogged){
