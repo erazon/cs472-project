@@ -39,11 +39,7 @@ app.use((req, res, next)=>{
     }
 });
 
-
-
-app.get('/', controllers.search);
-
-app.post('/', controllers.search);
+app.get('/', controllers.index);
 
 app.get('/login', controllers.loginGet);
 app.post('/login', controllers.loginPost);
