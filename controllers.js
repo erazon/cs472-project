@@ -5,6 +5,10 @@ const db = new sqlite3.Database('cars.db');
 
 let obj = {};
 
+obj.cars = (req, res, next)=>{
+    res.render('cars', {username:'admin'});
+};
+
 obj.loginGet = (req, res, next)=>{
     res.render('login.html', {error: false});
 };
@@ -24,10 +28,6 @@ obj.loginPost = (req, res, next)=>{
             res.render('login.html', {error: "! You have entered invalid username/password "});
         }
     });
-};
-
-obj.cars = (req, res, next)=>{
-    res.render('cars', {username:'admin'});
 };
 
 obj.previewBG = (req, res, next)=>{
