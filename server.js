@@ -49,7 +49,3 @@ app.get('/login', controllers.loginGet);
 app.post('/login', controllers.loginPost);
 
 app.get('/cars', controllers.cars);
-
-app.get('/preview-bg', controllers.previewBG);
-
-app.get('/visit-count', controllers.visitCount);
