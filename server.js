@@ -44,7 +44,7 @@ app.get('/', controllers.index);
 app.get('/add-car', controllers.carEntryForm);
 app.post('/add-car', controllers.carSave);
 app.delete('/delete-car', controllers.carDelete);
-app.post('/car-filter', controllers.carFilter);
+app.post('/car-list', controllers.carList);
 //app.post('/car-sort', controllers.carSort);
 app.get('/cars', controllers.cars);
 app.get('/login', controllers.loginGet);

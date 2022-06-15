@@ -27,8 +27,8 @@ obj.carEntryForm = (req, res, next)=>{
     res.render('addCar', {error: false});
 }
 
-obj.carFilter = (req, res, next)=>{
-    let filter = [];
+obj.carList = (req, res, next)=>{
+    let filter = ["id>0"];
     if(req.body.condition){
         filter.push("condition="+req.body.condition);
     }
@@ -38,19 +38,17 @@ obj.carFilter = (req, res, next)=>{
     if(req.body.model){
         filter.push("model="+req.body.model);
     }
+    
     filter = filter.join(' AND ');
-    if(filter){
-        db.all("SELECT * from cars WHERE ", (err, row)=>{
-            res.send({data: row});
-        });
-    }
+    //console.log(filter);
+    db.all("SELECT * from cars WHERE " + filter, (err, row)=>{
+        //console.log(row, err);
+        res.send(row);
+    });
 }
 
 obj.cars = (req, res, next)=>{
-    let data = [];
-    db.all("SELECT * from cars", (err, row)=>{
-        res.render('cars', {username:req.cookies.username, data: row});
-    });
+    res.render('cars', {username:req.cookies.username});
 };
 
 obj.carSave = (req, res, next)=>{

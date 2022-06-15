@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Cars</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/customize.css">
@@ -22,11 +23,8 @@
     </header>
   
     <div class="container-fluid">
-        
         <div class="content">
         <div class="col-12 col-md-12 col-lg-12">
-            
-            
             <table id="carList" class="table table-striped table-hover table-bordered table-inverse table-responsive-">
                 <thead class="thead-inverse">
                     <tr>
@@ -36,23 +34,9 @@
                         <th>Price</th>
                         <th>Distance</th>
                         <th>Zip</th>
-                        <th>Action</th>
+                        <th class="dt-action-col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <% for(let row of data){ %>
-                    <tr>
-                        <td><%= row.condition %></td>
-                        <td><%= row.make %></td>
-                        <td><%= row.model %></td>
-                        <td><%= row.price %></td>
-                        <td><%= row.distance %></td>
-                        <td><%= row.zip %></td>
-                        <td> <a href="#" onclick="delete_row(<%= row.id %>)" class="red"  data-toggle="tooltip" data-placement="top" title="Delete this car"><i class="fa fa-remove" aria-hidden="true"> </i> Delete</a>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
             </table>
             <!-- <nav aria-label="Page navigation">
               <ul class="pagination">
@@ -82,52 +66,81 @@
     <%- include('footer.html') %>
 
     <script>
-      $(document).ready(function () {
-          var table = $('#carList').DataTable( 
-            
-            // {
-            //     serverSide: true,
-            //     ajax: {
-            //         url: '/cars',
-            //         type: 'POST'
-            //     }
-            // }
-            
-            );
+    $(document).ready(function () {
+        const table = $('#carList').DataTable({
+            serverSide: true,
+            ajax: {
+                url: '/car-list',
+                type: 'POST',
+                data: {},
+                dataSrc: '',
+                DT_RowId: 'id',
+            },
+            columnDefs:[
+                {
+                    targets: 0,
+                    data: 'condition'
+                },
+                {
+                    targets: 1,
+                    data: 'make'
+                },
+                {
+                    targets: 2,
+                    data: 'model'
+                },
+                {
+                    targets: 3,
+                    data: 'price'
+                },
+                {
+                    targets: 4,
+                    data: 'distance'
+                },
+                {
+                    targets: 5,
+                    data: 'zip'
+                },
+                {
+                    targets: 6,
+                    data: null,
+                    defaultContent: '<a href="#" class="red"  data-toggle="tooltip" data-placement="top" title="Delete this car"><i class="fa fa-remove" aria-hidden="true"> </i> Delete</a>',
+                    sorting: false
+                },
+            ],
+            paging: false,
+            searching: false
+        });
 
-          //$('[data-toggle="tooltip"]').tooltip();
-
-          function delete_row(id)
-          {
-              if(confirm('Are you sure delete this data?'))
-              {
-                  // ajax delete data to database
-                  $.ajax({
-                      url : "/delete-car/"+id,
-                      type: "POST",
-                      dataType: "JSON",
-                      success: function(data)
-                      {
-                          //reload_table();
-                          //if success reload ajax table
-                          //$('#modal_form').modal('hide');
-                          //location.reload();
-                          reload_table();
-                          
-                      },
-                      error: function (jqXHR, textStatus, errorThrown)
-                      {
-                          alert('Error deleting data');
-                      }
-                  });
-
-              }
-          }
+        $('#carList tbody').on('click', 'a', function () {
+            const row = table.row($(this).parents('tr'));
+            const data = row.data();
+            //console.log(data);
+            if(confirm('Are you sure delete this car?')){
+                // ajax delete data to database
+                $.ajax({
+                    url : "/delete-car/?id="+data['id'],
+                    type: "DELETE"
+                }).done((resp)=>{
+                    //console.log(resp);
+                    //row.remove().draw();
+                    if(resp.deleted){
+                        //table.ajax.reload();
+                        $('#carList').DataTable().ajax.reload()
+                    }
+                    else{
+                        alert('Deletion failed! Something went wrong!');
+                    }
+                }).fail((err)=>{
+                    console.log(err);
+                });
+            }
+        });
 
 
-          $('table tbody tr').on( 'click', function () {
-              alert("Shahidul write ajax code to edit data")
-          } );
+        $('table tbody tr').on('click', function () {
+            alert("Shahidul write ajax code to edit data")
+        } );
 
 
       });
