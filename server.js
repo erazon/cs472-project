@@ -40,6 +40,7 @@ app.use((req, res, next)=>{
     }
 });
 
+app.get('/', controllers.index);
 app.get('/add-car', controllers.carEntryForm);
 app.post('/add-car', controllers.carSave);
 app.delete('/delete-car', controllers.carDelete);
@@ -51,5 +52,5 @@ app.post('/login', controllers.loginPost);
 app.get('/logout', controllers.logout);
 
 app.use((req, res, next)=>{
-    res.status(404).sendFile(path.join(__dirname, '404.html'));
+    res.status(404).sendFile(path.join(__dirname, 'views','404.html'));
 });

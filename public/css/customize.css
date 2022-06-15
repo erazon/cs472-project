@@ -3,7 +3,7 @@
     /* border-bottom: 2px solid blueviolet; */
 }
 .global-header:after {
-    background-image: linear-gradient(-90deg,#078da1,#986b30);
+    background-image: linear-gradient(-90deg,#078da1,cornflowerblue);
     content: "";
     height: 4px;
     position: absolute;
@@ -22,3 +22,32 @@
 a.nav-link{
     color: black;
 }
+
+.content{
+    margin: 30px auto;
+}
+
+.clear-fix{
+    clear: both;
+}
+.copyright{
+
+}
+
+ /* table style */
+ .table{
+    margin-top: 30px;
+ }
+
+ .table tr th{
+    background-color: cornflowerblue;
+    color: black;
+ }
+
+ .pagination, .copyright {
+    justify-content: center;
+ }
+ 
+ .red{
+    color: red;
+ }

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-sm navbar-white" style="background-color: #ffffff;">
+    <a class="navbar-brand" href="#">
+        <img src="/images/logo-5s.png" width="80" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"  alt="5sCars.com">
+    </a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cars">Cars</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" href="#">Action 1</a>
+                    <a class="dropdown-item" href="#">Action 2</a>
+                </div>
+            </li> -->
+        </ul>
+        <ul class="navbar-nav my-2 my-lg-0">
+            <% if(locals.username) { %>
+                <li>
+            <h5>Welcome,
+                <%= username %>! 
+            </h5>
+            </li>
+            <li><a style="display: inline-block;" class="" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Sign out</a></li>
+            <% } else {%>
+            <li class="nav-item">
+                <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Sign In</a>
+            </li>
+            <% } %>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+    </div>
+</nav>

@@ -5,6 +5,10 @@ const db = new sqlite3.Database('cars.db');
 
 let obj = {};
 
+obj.index = (req, res, next)=>{    
+    res.redirect('/cars')
+};
+
 obj.carDelete = (req, res, next)=>{
     //console.log(req.query.id);
     db.run("DELETE from cars WHERE id=?",
