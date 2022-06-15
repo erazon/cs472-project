@@ -77,16 +77,17 @@
                     </tr>
                     </thead>
                     <tbody>
+                        <% for(let row of data){ %>
                         <tr>
-                            <td>sas</td>
-                            <td>sa</td>
-                            <td>dsd</td>
-                            <td>xzz</td>
-                            <td>3443</td>
-                            <td>wewe</td>
+                            <td><%= row.condition %></td>
+                            <td><%= row.make %></td>
+                            <td><%= row.model %></td>
+                            <td><%= row.price %></td>
+                            <td><%= row.distance %></td>
+                            <td><%= row.zip %></td>
                             <td>Delete</td>
                         </tr>
-                        
+                        <% } %>
                     </tbody>
             </table>
             

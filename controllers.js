@@ -6,7 +6,10 @@ const db = new sqlite3.Database('cars.db');
 let obj = {};
 
 obj.cars = (req, res, next)=>{
-    res.render('cars', {username:'admin'});
+    let data = [];
+    db.all("SELECT * from cars", (err, row)=>{
+        res.render('cars', {username:req.cookies.username, data: row});
+    });
 };
 
 obj.loginGet = (req, res, next)=>{
@@ -21,7 +24,8 @@ obj.loginPost = (req, res, next)=>{
         console.log(row);
         if(row){
             //console.log(row);
-            res.cookie('isLogged', false, {maxAge: 1000*60*60*24*7, signed: true});
+            res.cookie('isLogged', true, {maxAge: 1000*60*60*24*7, signed: true});
+            res.cookie('username', req.body.username);
             res.redirect('/cars');
         }
         else{
@@ -29,5 +33,10 @@ obj.loginPost = (req, res, next)=>{
         }
     });
 };
+
+obj.logout = (req, res, next)=>{
+    res.clearCookie('isLogged');
+    res.redirect('/login');
+}
 
 module.exports = obj;

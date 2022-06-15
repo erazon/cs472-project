@@ -1,8 +1,9 @@
-var express = require("express");
-var app = express();
-var ejs = require("ejs");
+const express = require("express");
+const app = express();
+const ejs = require("ejs");
+const path = require('path');
 
-var cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const controllers = require('./controllers');
 
@@ -41,6 +42,7 @@ app.use((req, res, next)=>{
 
 app.get('/login', controllers.loginGet);
 app.post('/login', controllers.loginPost);
+app.get('/logout', controllers.logout);
 app.get('/cars', controllers.cars);
 
 app.use((req, res, next)=>{
