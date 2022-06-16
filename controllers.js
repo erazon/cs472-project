@@ -34,21 +34,21 @@ obj.carEntryForm = (req, res, next)=>{
         };
 
     if(req.query.id){
-        db.get("SELECT make, model from cars where id=$id", {
+        db.get("SELECT * from cars where id=$id", {
             $id: req.query.id
         }, (err, row)=>{
             console.log(row);
             if(row){
                 console.log(row);
-                res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+                res.render('addCar', {carTypes:carTypes, data:row, username:req.cookies.username, error: false});
             }
             else{
-                res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+                res.render('addCar', {carTypes:carTypes, data: {}, username:req.cookies.username, error: false});
             }
         });
     }
     else{
-        res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+        res.render('addCar', {carTypes:carTypes, data: {}, username:req.cookies.username, error: false});
     }
 }
 
@@ -77,6 +77,7 @@ obj.cars = (req, res, next)=>{
 };
 
 obj.carSave = (req, res, next)=>{
+    //if()
     db.run("INSERT INTO cars (condition, make, model, price, distance, zip) VALUES (?,?,?,?,?,?)",
     ["Used", "BMW", "1500", 5000, "22 miles", "52552"], function(err){
         //console.log(err);

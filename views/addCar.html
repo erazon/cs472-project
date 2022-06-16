@@ -43,20 +43,25 @@
             
 
             <form action="/add-car" class="add-form" data-submittype="vehicle-add" method="post">
+              <input type="hidden" name="car_id" value="<%= data.id %>" />
                 <div class="form-group col-md-4">
                   <label for="condition">New/used</label>
                   <select class="form-control" name="condition" id="condition" required>
                     <option value="">--Select--</option>
-                    <option value="New">New cars</option>
-                    <option value="Used">Used Cars</option>
+                    <option value="New" <% if(data.condition=='New'){%> selected <%}%>>New cars</option>
+                    <option value="Used" <% if(data.condition=='Used'){%> selected <%}%>>Used Cars</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Make</label>
                     <select class="form-control" name="make" id="make" required>
                         <option value="">--Select--</option>
-                        <% for(let make in carTypes){ %>
-                          <option><%= make %></option>
+                        <% for(let key in carTypes){ %>
+                          <% if(key == data.make){ %>
+                            <option selected><%= key %></option>
+                          <% } else{ %>
+                            <option><%= key %></option>
+                          <% } %>
                         <% } %>
                     </select>
                   </div>
@@ -64,21 +69,30 @@
                     <label for="">Model</label>
                     <select class="form-control" name="model" id="model" required>
                         <option value="">--Select--</option>
+                        <% if(data.model){ %>
+                          <% for(let val of carTypes[data.make]){ %>
+                            <% if(val == data.model){ %>
+                              <option selected><%= val %></option>
+                            <% } else{ %>
+                              <option><%= val %></option>
+                            <% } %>
+                          <% } %>
+                        <% } %>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="price">Price</label>
-                    <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price" required>
+                    <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price" value="<%= data.price %>" required>
                     <small id="helpId" class="form-text text-muted">Price of the car</small>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="distance">Distance</label>
-                    <input type="text" class="form-control" name="distance" id="distance" aria-describedby="helpId" placeholder="Distance" required>
+                    <input type="text" class="form-control" name="distance" id="distance" aria-describedby="helpId" placeholder="Distance" value="<%= data.distance %>" required>
                     <small id="helpId" class="form-text text-muted">Enter distance in mile</small>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="zip">ZIP</label>
-                    <input type="text" class="form-control" name="zip" id="zip" aria-describedby="helpId" placeholder="ZIP" required>
+                    <input type="text" class="form-control" name="zip" id="zip" aria-describedby="helpId" placeholder="ZIP" value="<%= data.zip %>" required>
                     <small id="helpId" class="form-text text-muted">Enter zip code</small>
                   </div>
                   <div class="form-group col-md-4">
