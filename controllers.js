@@ -24,7 +24,32 @@ obj.carDelete = (req, res, next)=>{
 };
 
 obj.carEntryForm = (req, res, next)=>{
-    res.render('addCar', {error: false});
+    //console.log(req.query.id);
+    const carTypes = 
+        {
+            "Acura": ["CL", "ILX", "ILX Hybrid"],
+            "Audi": ["A6", "A7", "A8"],
+            "BMW": ["1500", "1600", "2000"],
+            "Buick": ["California", "Cascada", "Centurion"]
+        };
+
+    if(req.query.id){
+        db.get("SELECT make, model from cars where id=$id", {
+            $id: req.query.id
+        }, (err, row)=>{
+            console.log(row);
+            if(row){
+                console.log(row);
+                res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+            }
+            else{
+                res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+            }
+        });
+    }
+    else{
+        res.render('addCar', {carTypes:carTypes, username:req.cookies.username, error: false});
+    }
 }
 
 obj.carList = (req, res, next)=>{
@@ -53,11 +78,14 @@ obj.cars = (req, res, next)=>{
 
 obj.carSave = (req, res, next)=>{
     db.run("INSERT INTO cars (condition, make, model, price, distance, zip) VALUES (?,?,?,?,?,?)",
-    ["Used", "BMW", "M-850", 35000, "22 miles", "52552"], function(err){
+    ["Used", "BMW", "1500", 5000, "22 miles", "52552"], function(err){
         //console.log(err);
         //console.log(this.lastID);
         if(err){
             res.render('addCar', {error: "Something went wrong. Please try again."});
+        }
+        else{
+            res.redirect('/cars');
         }
     });
 }

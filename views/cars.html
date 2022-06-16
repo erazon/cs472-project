@@ -112,7 +112,7 @@
             searching: false
         });
 
-        $('#carList tbody').on('click', 'a', function () {
+        $('#carList tbody').on('click', 'a', function (e) {
             const row = table.row($(this).parents('tr'));
             const data = row.data();
             //console.log(data);
@@ -135,12 +135,13 @@
                     console.log(err);
                 });
             }
+            return false;
         });
 
-
-        $('table tbody tr').on('click', function () {
-            alert("Shahidul write ajax code to edit data")
-        } );
+        $('#carList tbody').on('click', 'td', function () {
+            const data = table.row($(this).parents('tr')).data();
+            $(location).attr('href', '/add-car?id='+ data['id']);
+        });
 
 
       });

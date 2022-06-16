@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Add Car</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,6 +11,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/customize.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+      const carTypes = JSON.parse('<%- JSON.stringify(carTypes) %>');
+      $(function(){
+        //console.log(carTypes);
+        $('#make').on('change', function(){
+          //console.log($(this).val());
+          const make = $(this).val();
+          let options = '<option value="">--Select--</option>';
+          for(let model of carTypes[make]){
+            //console.log(data);
+            options += '<option value="">'+model+'</option>';
+          }
+          $('#model').html(options);
+        })
+      });
+    </script>
   </head>
   <body>
     <header class="global-header">
@@ -30,56 +46,43 @@
                 <div class="form-group col-md-4">
                   <label for="condition">New/used</label>
                   <select class="form-control" name="condition" id="condition" required>
-                    <option>--Select--</option>
-                    <option value="new">New cars</option>
-                    <option value="used">Used Cars</option>
+                    <option value="">--Select--</option>
+                    <option value="New">New cars</option>
+                    <option value="Used">Used Cars</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Make</label>
                     <select class="form-control" name="make" id="make" required>
-                        <option>--Select--</option>
-                        <option value="acura">Acura</option>
-                        <option value="audi">Audi</option>
-                        <option value="bmw">BMW</option>
-                        <option value="buick">Buick</option>
-                        <option value="cadillac">Cadillac</option>
-                        <option value="chevrolet">Chevrolet</option>
-                        <option value="chrysler">Chrysler</option>
-                        <option value="dodge">Dodge</option>
-                        <option value="ford">Ford</option>
-                        <option value="gmc">GMC</option>
-                        <option value="honda">Honda</option>
+                        <option value="">--Select--</option>
+                        <% for(let make in carTypes){ %>
+                          <option><%= make %></option>
+                        <% } %>
                     </select>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="">Model</label>
                     <select class="form-control" name="model" id="model" required>
-                        <option>--Select--</option>
-                        <option value="acura-cl">CL</option>
-                        <option value="acura-ilx">ILX</option>
-                        <option value="acura-ilx_hybrid">ILX Hybrid</option>
-                        <option value="acura-integra">Integra</option>
-                        <option value="acura-legend">Legend</option>
+                        <option value="">--Select--</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="price">Price</label>
-                    <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price">
+                    <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price" required>
                     <small id="helpId" class="form-text text-muted">Price of the car</small>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="distance">Distance</label>
-                    <input type="text" class="form-control" name="distance" id="distance" aria-describedby="helpId" placeholder="Distance">
+                    <input type="text" class="form-control" name="distance" id="distance" aria-describedby="helpId" placeholder="Distance" required>
                     <small id="helpId" class="form-text text-muted">Enter distance in mile</small>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="zip">ZIP</label>
-                    <input type="text" class="form-control" name="zip" id="zip" aria-describedby="helpId" placeholder="ZIP">
+                    <input type="text" class="form-control" name="zip" id="zip" aria-describedby="helpId" placeholder="ZIP" required>
                     <small id="helpId" class="form-text text-muted">Enter zip code</small>
                   </div>
                   <div class="form-group col-md-4">
-                    <button type="submit" class="btn btn-primary col-6">Add Car</button>
+                    <input type="submit" class="btn btn-primary col-6" value="Add Car">
                   </div>
                   
            
