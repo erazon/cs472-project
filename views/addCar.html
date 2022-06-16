@@ -40,20 +40,20 @@
         
         <div class="content">
         <div class="col-12 col-md-12 col-lg-12">
+          <form action="/add-car" class="add-form" data-submittype="vehicle-add" method="post">
+            <input type="hidden" name="car_id" value="<%= data.id %>" /> 
+          <div class="row">
             
-
-            <form action="/add-car" class="add-form" data-submittype="vehicle-add" method="post">
-              <input type="hidden" name="car_id" value="<%= data.id %>" />
-                <div class="form-group col-md-4">
-                  <label for="condition">New/used</label>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="condition">New/used</label>
                   <select class="form-control" name="condition" id="condition" required>
                     <option value="">--Select--</option>
                     <option value="New" <% if(data.condition=='New'){%> selected <%}%>>New cars</option>
                     <option value="Used" <% if(data.condition=='Used'){%> selected <%}%>>Used Cars</option>
                   </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="">Make</label>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="">Make</label>
                     <select class="form-control" name="make" id="make" required>
                         <option value="">--Select--</option>
                         <% for(let key in carTypes){ %>
@@ -64,9 +64,9 @@
                           <% } %>
                         <% } %>
                     </select>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="">Model</label>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="">Model</label>
                     <select class="form-control" name="model" id="model" required>
                         <option value="">--Select--</option>
                         <% if(data.model){ %>
@@ -79,28 +79,29 @@
                           <% } %>
                         <% } %>
                     </select>
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="price">Price</label>
-                    <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price" value="<%= data.price %>" required>
-                    <small id="helpId" class="form-text text-muted">Price of the car</small>
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="distance">Distance</label>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="price">Price</label>
+              <input type="text" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="Price" value="<%= data.price %>" required>
+              <small id="helpId" class="form-text text-muted">Price of the car</small>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="distance">Distance</label>
                     <input type="text" class="form-control" name="distance" id="distance" aria-describedby="helpId" placeholder="Distance" value="<%= data.distance %>" required>
                     <small id="helpId" class="form-text text-muted">Enter distance in mile</small>
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="zip">ZIP</label>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <label for="zip">ZIP</label>
                     <input type="text" class="form-control" name="zip" id="zip" aria-describedby="helpId" placeholder="ZIP" value="<%= data.zip %>" required>
                     <small id="helpId" class="form-text text-muted">Enter zip code</small>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <input type="submit" class="btn btn-primary col-6" value="<% if(data.id){%>Update<%}else{%>Add<%}%> Car">
-                  </div>
-                  
-           
-              </form>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <input type="submit" class="btn btn-primary col-6" value="<% if(data.id){%>Update<%}else{%>Add<%}%> Car">
+            </div>
+          
+          </div>
+          </form>
+            
             <div class="copyright"><p class="mt-5 mb-3 text-muted"><i class="fa fa-copyright" aria-hidden="true"></i>2022 5sCars.com. All rights reserved.</p></div>
         </div>
         
