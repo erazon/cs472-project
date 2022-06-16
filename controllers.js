@@ -102,7 +102,7 @@ obj.carSave = (req, res, next)=>{
 }
 
 obj.loginGet = (req, res, next)=>{
-    res.render('login', {error: false});
+    res.render('login', {username:null, error: false});
 };
 
 obj.loginPost = (req, res, next)=>{
@@ -110,7 +110,7 @@ obj.loginPost = (req, res, next)=>{
         $username: req.body.username,
         $password: req.body.password
     }, (err, row)=>{
-        console.log(row);
+        //console.log(row);
         if(row){
             //console.log(row);
             if(req.body.rememberme){
@@ -119,8 +119,7 @@ obj.loginPost = (req, res, next)=>{
             else{
                 res.cookie('isLogged', true, {signed: true});
             }
-            res.cookie('isLogged', true, {maxAge: 1000*60*60*24*7, signed: true});
-            res.cookie('username', req.body.username);
+            res.cookie('username', req.body.username, {maxAge: 1000*60*60*24*7});
             res.redirect('/cars');
         }
         else{
