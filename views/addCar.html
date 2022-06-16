@@ -21,7 +21,7 @@
           let options = '<option value="">--Select--</option>';
           for(let model of carTypes[make]){
             //console.log(data);
-            options += '<option value="">'+model+'</option>';
+            options += '<option>'+model+'</option>';
           }
           $('#model').html(options);
         })
@@ -96,7 +96,7 @@
                     <small id="helpId" class="form-text text-muted">Enter zip code</small>
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="submit" class="btn btn-primary col-6" value="Add Car">
+                    <input type="submit" class="btn btn-primary col-6" value="<% if(data.id){%>Update<%}else{%>Add<%}%> Car">
                   </div>
                   
            

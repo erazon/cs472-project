@@ -4,6 +4,13 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('cars.db');
 
 let obj = {};
+const carTypes = 
+        {
+            "Acura": ["CL", "ILX", "ILX Hybrid"],
+            "Audi": ["A6", "A7", "A8"],
+            "BMW": ["1500", "1600", "2000"],
+            "Buick": ["California", "Cascada", "Centurion"]
+        };
 
 obj.index = (req, res, next)=>{    
     res.redirect('/cars')
@@ -25,14 +32,6 @@ obj.carDelete = (req, res, next)=>{
 
 obj.carEntryForm = (req, res, next)=>{
     //console.log(req.query.id);
-    const carTypes = 
-        {
-            "Acura": ["CL", "ILX", "ILX Hybrid"],
-            "Audi": ["A6", "A7", "A8"],
-            "BMW": ["1500", "1600", "2000"],
-            "Buick": ["California", "Cascada", "Centurion"]
-        };
-
     if(req.query.id){
         db.get("SELECT * from cars where id=$id", {
             $id: req.query.id
@@ -77,13 +76,24 @@ obj.cars = (req, res, next)=>{
 };
 
 obj.carSave = (req, res, next)=>{
-    //if()
-    db.run("INSERT INTO cars (condition, make, model, price, distance, zip) VALUES (?,?,?,?,?,?)",
-    ["Used", "BMW", "1500", 5000, "22 miles", "52552"], function(err){
+    //console.log(req.body);
+    let sql = '';
+    let data = [req.body.condition, req.body.make, req.body.model, req.body.price,
+    req.body.distance, req.body.zip];
+    if(req.body.car_id){
+        data.push(req.body.car_id);
+        sql = "UPDATE cars set condition=?, make=?, model=?, price=?, distance=?, zip=? WHERE id=?";
+    }
+    else{
+        sql = "INSERT INTO cars (condition, make, model, price, distance, zip) VALUES (?,?,?,?,?,?)";
+    }
+
+    db.run(sql, data, function(err){
         //console.log(err);
         //console.log(this.lastID);
         if(err){
-            res.render('addCar', {error: "Something went wrong. Please try again."});
+            res.render('addCar', {carTypes:carTypes, data: {}, username:req.cookies.username,
+            error: "Something went wrong. Please try again."});
         }
         else{
             res.redirect('/cars');
