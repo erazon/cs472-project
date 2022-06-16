@@ -54,13 +54,13 @@ obj.carEntryForm = (req, res, next)=>{
 obj.carList = (req, res, next)=>{
     let filter = ["id>0"];
     if(req.body.condition){
-        filter.push("condition="+req.body.condition);
+        filter.push("condition='"+req.body.condition+"'");
     }
     if(req.body.make){
-        filter.push("make="+req.body.make);
+        filter.push("make='"+req.body.make+"'");
     }
     if(req.body.model){
-        filter.push("model="+req.body.model);
+        filter.push("model='"+req.body.model+"'");
     }
     
     filter = filter.join(' AND ');
@@ -72,7 +72,7 @@ obj.carList = (req, res, next)=>{
 }
 
 obj.cars = (req, res, next)=>{
-    res.render('cars', {username:req.cookies.username});
+    res.render('cars', {carTypes: carTypes, username:req.cookies.username});
 };
 
 obj.carSave = (req, res, next)=>{
@@ -113,6 +113,12 @@ obj.loginPost = (req, res, next)=>{
         console.log(row);
         if(row){
             //console.log(row);
+            if(req.body.rememberme){
+                res.cookie('isLogged', true, {maxAge: 1000*60*60*24*7, signed: true});
+            }
+            else{
+                res.cookie('isLogged', true, {signed: true});
+            }
             res.cookie('isLogged', true, {maxAge: 1000*60*60*24*7, signed: true});
             res.cookie('username', req.body.username);
             res.redirect('/cars');
