@@ -68,7 +68,7 @@
     <script>
     $(document).ready(function () {
         const table = $('#carList').DataTable({
-            serverSide: true,
+            serverSide: false,
             ajax: {
                 url: '/car-list',
                 type: 'POST',
