@@ -61,4 +61,13 @@ a.nav-link{
     left: 13px;
     position: relative;
  }
-    
+ form.add-form .btn{
+    padding: 20px;
+    background: transparent;
+    background-color: #532380;
+    border: 0;
+    color: #fff;
+    transition: background-color .25s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+ }
