@@ -36,9 +36,9 @@ obj.carEntryForm = (req, res, next)=>{
         db.get("SELECT * from cars where id=$id", {
             $id: req.query.id
         }, (err, row)=>{
-            console.log(row);
+            //console.log(row);
             if(row){
-                console.log(row);
+                //console.log(row);
                 res.render('addCar', {carTypes:carTypes, data:row, username:req.cookies.username, error: false});
             }
             else{

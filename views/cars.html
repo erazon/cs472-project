@@ -76,7 +76,7 @@
     const carTypes = JSON.parse('<%- JSON.stringify(carTypes) %>');
     $(document).ready(function () {
         const table = $('#carList').DataTable({
-            serverSide: true,
+            //serverSide: true,
             ajax: {
                 url: '/car-list',
                 type: 'POST',
@@ -91,8 +91,7 @@
                     data.make = make;
                     data.model = model;
                 },
-                dataSrc: '',
-                DT_RowId: 'id',
+                dataSrc: ''
             },
             columnDefs:[
                 {
@@ -131,6 +130,7 @@
             searching: false
         });
 
+        // car delete
         $('#carList tbody').on('click', 'a', function (e) {
             const row = table.row($(this).parents('tr'));
             const data = row.data();
@@ -151,7 +151,8 @@
                         alert('Deletion failed! Something went wrong!');
                     }
                 }).fail((err)=>{
-                    console.log(err);
+                    //console.log(err);
+                    alert('Deletion failed! Something went wrong!');
                 });
             }
             return false;
@@ -174,8 +175,62 @@
         });
 
         $('#btn-filter').on('click', function(){
-            console.log('btton');
-            table.draw();
+            //table.draw();
+            $('#carList').DataTable().clear().destroy();
+            table = $('#carList').DataTable({
+            //serverSide: true,
+            ajax: {
+                url: '/car-list',
+                type: 'POST',
+                data: function(data){
+                    // Read values
+                    let condition = $('#condition').val();
+                    let make = $('#make').val();
+                    let model = $('#model').val();
+
+                    // Append to data
+                    data.condition = condition;
+                    data.make = make;
+                    data.model = model;
+                },
+                dataSrc: ''
+            },
+            columnDefs:[
+                {
+                    targets: 0,
+                    data: 'condition'
+                },
+                {
+                    targets: 1,
+                    data: 'make'
+                },
+                {
+                    targets: 2,
+                    data: 'model'
+                },
+                {
+                    targets: 3,
+                    data: 'price'
+                },
+                {
+                    targets: 4,
+                    data: 'distance'
+                },
+                {
+                    targets: 5,
+                    data: 'zip'
+                },
+                {
+                    targets: 6,
+                    data: null,
+                    defaultContent: '<a href="#" class="red"  data-toggle="tooltip" data-placement="top" title="Delete this car"><i class="fa fa-remove" aria-hidden="true"> </i> Delete</a>',
+                    sorting: false
+                },
+            ],
+            bPaginate: false,
+            dom: "lfrti",
+            searching: false
+        });
         });
       });
     </script>
